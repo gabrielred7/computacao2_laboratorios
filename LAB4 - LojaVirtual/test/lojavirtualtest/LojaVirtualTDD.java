@@ -12,15 +12,14 @@ import static org.junit.Assert.assertTrue;
 
 public class LojaVirtualTDD {
     
-    private Loja
+    private LojaVirtual lojavirtual;
     
     public LojaVirtualTDD() {
     }
 
     
-    @Before
-    public void setUp() {
-        
+    @Test
+    public void testarEfetuarVenda(){
+         LojaVirtual loja1 = new LojaVirtual();
     }
-    
 }
