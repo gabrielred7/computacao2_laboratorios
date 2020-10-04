@@ -7,22 +7,30 @@ public class Tuite<T> {
     
     private final Usuario autor;
     private final String texto;
+    private ArrayList<String> hashtags;
+    private ArrayList<String> palavras;
+    private Object anexo;
 
     public Tuite(Usuario autor, String texto) {
         this.autor = autor;
         this.texto = texto;
+        this.hashtags =new ArrayList<>();
     }
     
-    public void anexarAlgo(Object anexo){
-    
+    // Override de Constructor
+    public Tuite(Usuario autor, String texto, Object anexo) {
+        this.autor = autor;
+        this.texto = texto;
+        this.anexo = anexo;
+        this.hashtags =new ArrayList<>();
     }
     
     public Object getAnexo(){
-        return null;
+        return this.anexo;
     }
     
-    public ArrayList<String> getHashtags(){
-        return null;
+    public void anexarAlgo(Object anexo){
+        this.anexo = anexo;
     }
     
     public Usuario getAutor() {
@@ -31,5 +39,20 @@ public class Tuite<T> {
 
     public String getTexto() {
         return this.texto;
+    }
+
+     public ArrayList<String> getHashtags() {
+        String[] linhas = this.texto.split(" ");
+        for (int i = 0; i < linhas.length; i++) {
+            if (linhas[i].charAt(0) == '#') {
+                 this.hashtags.add(linhas[i]);
+            }
+        }
+        return hashtags;
+    }
+     
+    @Override
+    public String toString() {
+        return String.format("O Tuite do Usuario " + autor.getNome() + ", foi: " + texto);
     }
 }

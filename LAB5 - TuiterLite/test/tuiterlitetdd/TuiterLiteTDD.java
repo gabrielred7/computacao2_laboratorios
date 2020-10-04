@@ -33,7 +33,7 @@ public class TuiterLiteTDD {
     public void testeAutorDoTuite() {
         Tuite tuite = tuiterLite.tuitarAlgo(usuario, "Testando");
         assertEquals("O tuíte deve retornar corretamente seu autor",
-                usuario, tuite.getAutor());
+                this.usuario, tuite.getAutor());
     }
     
     @Test
