@@ -6,12 +6,12 @@ import java.util.ArrayList;
 public class TuiterLite<T> {
     private ArrayList<Usuario> baseUsuarios;
     private ArrayList<Tuite> bancoTuites;
-    private ArrayList<Tuite> todasHashtags;
-    public static final int TAMANHO_MAXIMO_TUITES = 120;
     private String hashtagMaisComum;
+    public static final int TAMANHO_MAXIMO_TUITES = 120;
 
     public TuiterLite() {
-        this.baseUsuarios =new ArrayList<>();
+        this.baseUsuarios = new ArrayList<>();
+        this.bancoTuites = new ArrayList<>();
     }
     
     public Usuario cadastrarUsuario(String nome, String email){
@@ -36,18 +36,19 @@ public class TuiterLite<T> {
     public Tuite tuitarAlgo(Usuario usuario, String texto){
         if (this.verificarCadastroUsuario(usuario) && this.verificarTamanhoTexto(texto)) { 
             Tuite novoTuite = new Tuite(usuario, texto);
-            usuario.setQuantidadeDeTuites(1);
             this.bancoTuites.add(novoTuite);
+            usuario.setQuantidadeDeTuites(1);
             return novoTuite;
         } else {
             return null; // se pelo menos um dos dois nao for
         }
     }
     
-    // Override
+    //Override
     public Tuite tuitarAlgo(Usuario usuario, String texto, Object anexo){
         if (this.verificarCadastroUsuario(usuario) && this.verificarTamanhoTexto(texto)) { 
-            Tuite novoTuite = new Tuite(usuario, texto);
+            Tuite novoTuite = new Tuite(usuario, texto, anexo);
+            this.bancoTuites.add(novoTuite);
             usuario.setQuantidadeDeTuites(1);
             return novoTuite;
         } else {
@@ -65,19 +66,16 @@ public class TuiterLite<T> {
     }
     
     private boolean verificarTamanhoTexto(String texto){
-        // se o tuite ultrapassar o limite return true        
-        return texto.length() <= TAMANHO_MAXIMO_TUITES; 
+        return texto.length() <= TAMANHO_MAXIMO_TUITES;  // se o tuite ultrapassar o limite return true        
     }
-
+    
+    
     public String getHashtagMaisComum() {
-        
-        return null;
-    } 
-
-    public ArrayList<Tuite> getTodasHashtags() {
+        StringBuilder hashtags = new StringBuilder();
         for (int i = 0; i < this.bancoTuites.size(); i++) {
-            ArrayList<String> hashtags = bancoTuites.get(i).getHashtags();
-            this.todasHashtags.add(hashtags);
+            hashtags.append(bancoTuites.get(i).getHashtags());
+            hashtagMaisComum = hashtags.toString();
         }
-    }
+        return this.hashtagMaisComum;    
+    }  
 }
