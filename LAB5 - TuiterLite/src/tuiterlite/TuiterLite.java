@@ -7,6 +7,7 @@ public class TuiterLite<T> {
     private ArrayList<Usuario> baseUsuarios;
     private ArrayList<Tuite> bancoTuites;
     private String hashtagMaisComum;
+    private String listaDeHashtags;
     public static final int TAMANHO_MAXIMO_TUITES = 120;
 
     public TuiterLite() {
@@ -73,9 +74,9 @@ public class TuiterLite<T> {
     public String getHashtagMaisComum() {
         StringBuilder hashtags = new StringBuilder();
         for (int i = 0; i < this.bancoTuites.size(); i++) {
-            hashtags.append(bancoTuites.get(i).getHashtags());
-            hashtagMaisComum = hashtags.toString();
+            hashtags = hashtags.append(bancoTuites.get(i).getHashtags());
+            this.listaDeHashtags = hashtags.toString();
         }
-        return this.hashtagMaisComum;    
-    }  
+        return listaDeHashtags;    
+    }
 }
